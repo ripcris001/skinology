@@ -14,7 +14,7 @@
                                 foreach ($value->sub as $skey => $lv){
                                     ?>
                                     <li>
-                                        <a href="<?php print_r($lv->url); ?>" class="sidebar-data">
+                                        <a href="<?php print_r($lv->url); ?>" class="sidebar-data" data-tag="dropdown">
                                             <i class="bi bi-circle"></i><span><?php print_r($lv->name); ?></span>
                                             </a>
                                         </li>
@@ -27,7 +27,7 @@
             }else{
                 ?>
                     <li class="nav-item">
-                        <a class="nav-link collapsed sidebar-data" href="<?php print_r($value->url); ?>">
+                        <a class="nav-link collapsed sidebar-data" href="<?php print_r($value->url); ?>" data-tag="single">
                             <i class="bi <?php print_r($value->icon); ?>"></i>
                             <span><?php print_r($value->name); ?></span>
                         </a>

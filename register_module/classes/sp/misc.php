@@ -4,6 +4,5 @@ class misc extends utils {
     public function __construct($param){
         $this->DBCon = $param;
     }
-
 }
 ?>

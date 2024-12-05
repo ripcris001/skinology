@@ -42,6 +42,10 @@
 
   <link href="/assets/plugin/slider/swiper-bundle.min.css" rel="stylesheet">
   <script src="/assets/plugin/slider/swiper-bundle.min.js"></script>
+
+  <!-- Sweetalert Plugin File -->
+  <script src="/assets/plugin/sweetalert2/sweetalert2.all.min.js"></script>
+  <link rel="stylesheet" href="/assets/plugin/sweetalert2/sweetalert2.min.css">
 </head>
 
 <body
@@ -52,9 +56,8 @@
   <header id="header" class="header fixed-top d-flex align-items-center">
 
     <div class="d-flex align-items-center justify-content-between">
-      <a class="logo d-flex align-items-center" href="/">
-        <img src="<?php print_r($app->info->logo); ?>" alt="" class="custom_logo_img">
-        <span class="d-none d-lg-block"><?php print_r($app->info->title); ?></span>
+      <a class="logo d-flex align-items-center" href="#">
+        <img src="<?php print_r($app->info->logo); ?>" alt="" style="margin: 0 auto; max-height: 5rem;">
       </a>
       
       <?php 
@@ -202,13 +205,17 @@
         let active_count = 0;
         const sidebar_length = $('body').find('.sidebar-data').length;
         $('body').find('.sidebar-data').each(function(i){
-          console.log(i);
           const local = $(this);
           const s_url = local.attr('href');
+          const sidebar_tag = local.attr('data-tag');
           if(s_url == sb_url){
-            local.addClass('active');
-            local.closest('.nav-content').addClass('show');
-            active_count++
+            if(sidebar_tag == 'single'){
+              local.removeClass('collapsed');
+            }else{
+              local.closest('.nav-item').find('.collapsed').removeClass('collapsed');
+              local.closest('.nav-item').find('.collapse').removeClass('collapse');
+              local.addClass('active');
+            }
           }
         })
       }

@@ -3,20 +3,6 @@
         switch(strtolower($server->request->param_url)){
             case "home":
                 session_handler('main');
-                // $app->data->access = "admin";
-                // $app->data->subtitle = "Admin";
-                // $app->template->layout = $utils->buildpath("template/admin/login/layout.php");
-                // $app->template->page = $utils->buildpath("pages/main/register.php");
-                // $utils->render($app);
-            break;
-
-            case "register":
-                session_handler('main', 1);
-                $app->data->access = "admin";
-                $app->data->subtitle = "Admin";
-                $app->template->layout = $utils->buildpath("template/admin/login/layout.php");
-                $app->template->page = $utils->buildpath("pages/main/register.php");
-                $utils->render($app);
             break;
 
             case "login":
@@ -28,30 +14,47 @@
                 $utils->render($app);
             break;
 
-            case "dashboard":
+            case "appointment":
                 session_handler('main');
-                $app->data->access = "Dashboard";
-                $app->data->subtitle = "Dashboard";
-                $app->template->page = $utils->buildpath("pages/main/dashboard.php");
-                $utils->render($app, ["member"]);
+                $app->data->access = "Appointment";
+                $app->data->subtitle = "Appointment List";
+                $app->template->page = $utils->buildpath("pages/main/appointment/appointment.php");
+                $utils->render($app, ["admin", "member"]);
             break;
 
-            case "members":
-                session_handler('main');
-                $app->data->access = "Member List";
-                $app->data->subtitle = "Members";
-                $app->template->page = $utils->buildpath("pages/main/members/list.php");
-                $utils->render($app, ["admin"]);
-            break;
+            // case "members":
+            //     session_handler('main');
+            //     $app->data->access = "Member List";
+            //     $app->data->subtitle = "Members";
+            //     $app->template->page = $utils->buildpath("pages/main/members/list.php");
+            //     $utils->render($app, ["admin", "member"]);
+            // break;
 
-            case "qr":
-                session_handler('main', 1);
-                $app->data->access = "admin";
-                $app->data->subtitle = "Admin";
-                $app->template->layout = $utils->buildpath("template/plain/layout.php");
-                $app->template->page = $utils->buildpath("pages/main/qr/qr.php");
-                $utils->render($app);
-            break;
+            // case "register":
+            //     session_handler('main', 1);
+            //     $app->data->access = "admin";
+            //     $app->data->subtitle = "Admin";
+            //     $app->template->layout = $utils->buildpath("template/admin/login/layout.php");
+            //     $app->template->page = $utils->buildpath("pages/main/register.php");
+            //     $utils->render($app);
+            // break;
+
+            // case "dashboard":
+            //     session_handler('main');
+            //     $app->data->access = "Dashboard";
+            //     $app->data->subtitle = "Dashboard";
+            //     $app->template->page = $utils->buildpath("pages/main/dashboard.php");
+            //     $utils->render($app, ["member"]);
+            // break;
+
+            // case "qr":
+            //     session_handler('main', 1);
+            //     $app->data->access = "admin";
+            //     $app->data->subtitle = "Admin";
+            //     $app->template->layout = $utils->buildpath("template/plain/layout.php");
+            //     $app->template->page = $utils->buildpath("pages/main/qr/qr.php");
+            //     $utils->render($app);
+            // break;
 
             case "logout":
                 session_destroy();

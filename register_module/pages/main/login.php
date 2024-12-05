@@ -3,7 +3,7 @@
 
         <div class="d-flex justify-content-center py-4">
             <a href="#" class="logo d-flex flex-column align-items-center w-auto gap-3">
-                <img src="<?php print_r($app->info->logo); ?>" alt="" style="max-height: 70px;">
+                <img src="<?php print_r($app->info->logo); ?>" alt="" style="max-height: 15rem;">
                 <!-- <span class="d-none d-lg-block"><?php print_r($app->info->title); ?></span> -->
             </a>
         </div><!-- End Logo -->
@@ -35,9 +35,9 @@
                     <div class="col-12">
                         <button class="btn btn-primary w-100" type="submit">Login</button>
                     </div>
-                    <div class="col-12">
+                    <!-- <div class="col-12">
                         <p class="small mb-0">Don't have account? <a href="/?url=register">Register</a></p>
-                    </div>
+                    </div> -->
                 </form>
 
             </div>
@@ -86,13 +86,29 @@
                         if(Object.keys(input).length){
                             $.post('/?url=users/auth', input).done(function(res){
                                 if(res.status){
-                                    window.location.href = '/?url=dashboard';
+                                    Swal.fire({
+                                        icon: "success",
+                                        title: `Success`,
+                                        text: `${res.message}`,                 
+                                        allowOutsideClick: false,
+                                        timer: 3000,
+                                    }).then(function(){
+                                        window.location.href = '/?url=appointment';
+                                    });
                                 }else{
-                                    alert(`${res.message}`);
+                                    Swal.fire({
+                                        icon: "error",
+                                        title: `Login Failed`,
+                                        text: `${res.message}`
+                                    });
                                 }
                             })
                         }else{
-                            alert('No input');
+                            Swal.fire({
+                                icon: "error",
+                                title: `Error`,
+                                text: `No input`
+                            });
                         }
                     }
                 })

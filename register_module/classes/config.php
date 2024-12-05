@@ -17,17 +17,17 @@
 	/* Website Config */
 	Define("WEBSITE_HOMEPAGE", "main");
 
-	Define("WEBSITE_TITLE", "Registration");
-	Define("WEBSITE_TITLE_ACRO", "REG");
-	Define("WEBSITE_LOGO", "/assets/custom_assets/images/banner.jfif");
-	Define("WEBSITE_LOGO_FAVICON", "/assets/custom_assets/images/logo.jfif");
+	Define("WEBSITE_TITLE", "Skinology");
+	Define("WEBSITE_TITLE_ACRO", "SKN");
+	Define("WEBSITE_LOGO", "/assets/custom/images/skinology-nbg.png");
+	Define("WEBSITE_LOGO_FAVICON", "/assets/custom/images/skinology.jpg");
 
 	/* Default value  */
 	Define("DEFAULT_REGISTER_REGION", 9);
 	Define("DEFAULT_REGISTER_PROVINCE", 48);
 	Define("DEFAULT_REGISTER_CITY", 0);
 	Define("DEFAULT_REGISTER_BARANGAY", 0);
-	Define("DEFAULT_UPLOAD_DIR", "assets/upload/student/");
+	Define("DEFAULT_UPLOAD_DIR", "assets/upload/");
 
 	Define("DEFAULT_FOOTER_COPYRIGHT", '
 		<div class="copyright">© '. date('Y') .'. All rights reserved. </div>
