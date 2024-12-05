@@ -17,7 +17,7 @@
             case "appointment":
                 session_handler('main');
                 $app->data->access = "Appointment";
-                $app->data->subtitle = "Appointment List";
+                $app->data->subtitle = "Appointment";
                 $app->template->page = $utils->buildpath("pages/main/appointment/appointment.php");
                 $utils->render($app, ["admin", "member"]);
             break;

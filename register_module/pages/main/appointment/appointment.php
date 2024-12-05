@@ -2,10 +2,10 @@
     <div class="card">
         <div class="card-body">
             <div class="d-flex justify-content-between align-items-center">
-                <h5 class="card-title">Member List</h5>
-                <div>
+                <h5 class="card-title">Appointment List</h5>
+                <!-- <div>
                     <button class="btn btn-primary btn-action" data-action="create">Add</button>
-                </div>
+                </div> -->
             </div>
             <!-- Table with stripped rows -->
             <div class="table-responsive">
@@ -71,7 +71,8 @@
 	        					for(let a = 0; a < count; a++){
 	        						const loopdata = source.data[a];
 									loopdata.nSchedule = `${loopdata.date} ${loopdata.time}`;
-									loopdata.nAction = `<button class="btn btn-primary btn-action" data-action="view">View</button>`
+									loopdata.nAction = "";
+									// loopdata.nAction = `<button class="btn btn-primary btn-action" data-action="view">View</button>`
 	        						arr.push(loopdata);
 	        						if(a == (count -1)){
 	        							return arr;
