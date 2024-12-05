@@ -29,6 +29,8 @@
 	Define("DEFAULT_REGISTER_BARANGAY", 0);
 	Define("DEFAULT_UPLOAD_DIR", "assets/upload/");
 
+	Define("DEFAULT_IMAGE_DIR", "/home/skinology/Images");
+
 	Define("DEFAULT_FOOTER_COPYRIGHT", '
 		<div class="copyright">© '. date('Y') .'. All rights reserved. </div>
 	');

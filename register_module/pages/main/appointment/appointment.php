@@ -72,7 +72,7 @@
 	        						const loopdata = source.data[a];
 									loopdata.nSchedule = `${loopdata.date} ${loopdata.time}`;
 									loopdata.nAction = "";
-									// loopdata.nAction = `<button class="btn btn-primary btn-action" data-action="view">View</button>`
+									loopdata.nAction = `<button class="btn btn-primary btn-action" data-action="view"><i class="bi bi-eye"></i></button>`
 	        						arr.push(loopdata);
 	        						if(a == (count -1)){
 	        							return arr;
@@ -111,12 +111,21 @@
 	        		}
 					]
 	        	});
-                // $.post('/?url=agent/list', {}).done(function(res){
-                //     s.generateAgentTable(res.status ? res.data : []);
-                // })
             },
             event: function(){
                 const s = this;
+				$('body').on('click', '.btn-action', function(){
+                    const local = $(this);
+                    const action = local.attr('data-action');
+                    const tdata = s.datatable.main.row($(this.closest("tr"))).data();
+                    if(typeof action != 'undefined'){
+                        switch(action){
+                            case 'view':
+								window.location.href = `/?url=appointment/information&id=${tdata.appointment_id}`;
+							break;
+						}
+					}
+				})
             }
         }
         main.init()

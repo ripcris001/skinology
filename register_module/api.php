@@ -36,7 +36,63 @@
             
             case "appointment/list/daily":
                 try {
-                    $sp = $app->sp->users->getAppointmentDaily($app->input->post, true);
+                    $sp = $app->sp->appointment->getAppointmentDaily($app->input->post, true);
+                    $response->query = $sp;
+                    $response->code = $sp->code;
+                    $response->status = $sp->status;
+                    $response->data = $sp->data;
+                } catch (Exception $e) {
+                    $response->message = $e->getMessage();
+                }
+            break;
+
+            case "appointment/list":
+                try {
+                    $sp = $app->sp->appointment->getAppointment($app->input->post, true);
+                    $response->query = $sp;
+                    $response->code = $sp->code;
+                    $response->status = $sp->status;
+                    $response->data = $sp->data;
+                } catch (Exception $e) {
+                    $response->message = $e->getMessage();
+                }
+            break;
+
+            case "appointment/list/single":
+                try {
+                    $sp = $app->sp->appointment->getAppointment($app->input->post);
+                    $response->query = $sp;
+                    $response->code = $sp->code;
+                    $response->status = $sp->status;
+                    $response->data = $sp->data;
+                } catch (Exception $e) {
+                    $response->message = $e->getMessage();
+                }
+            break;
+
+
+            case "appointment/patient/files":
+                try {
+                    $fileList = array();
+                    $appointment_path = DEFAULT_IMAGE_DIR . "/" . $app->input->post['patient'] . '/' . $app->input->post['reference'];
+                    $files = scandir($appointment_path);
+                    if(count($files) > 0){
+                        foreach ($files as $file) {
+                            $filePath = $appointment_path . '/' . $file;
+                            if (is_file($filePath)) {
+                                $fileList[] = array("path" => $filePath, "file" => $file);
+                            }
+                        }
+                    }
+                    $response->data = $fileList;
+                } catch (Exception $e) {
+                    $response->message = $e->getMessage();
+                }
+            break;
+
+            case "users/list":
+                try {
+                    $sp = $app->sp->users->getUser($app->input->post, true);
                     $response->query = $sp;
                     $response->code = $sp->code;
                     $response->status = $sp->status;

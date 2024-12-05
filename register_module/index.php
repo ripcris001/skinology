@@ -40,7 +40,7 @@
         $app->data->url->imagefile = "http://cmsimagesfile.ggc.ph:8081";
         $app->data->url->imageportal = "http://cmsimagesportal.ggc.ph:8080";
 
-        $app->data->adminSidebar[] = $utils->sidebar('Appointment', $utils->genUrlRaw('appointment'), 'bi-grid');
+        $app->data->adminSidebar[] = $utils->sidebar('Appointment', $utils->genUrlRaw('appointment'), 'bi-card-checklist');
         // $app->data->adminSidebar[] = $utils->sidebar('Dashboard', $utils->genUrlRaw('dashboard'), 'bi-grid');
         // $app->data->adminSidebar[] = $utils->sidebar('Members', $utils->genUrlRaw('members'), 'bi-person');
         
