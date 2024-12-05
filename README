@@ -1,22 +1,7 @@
 ** API Urls; **
+# Sample Api URL and payload
 
-# Add Device
-http://localhost/?url=add--device 
-
-# Payload
-    - name          : string - Value for device name
-    - code          : string - Value for device code  
-
-# Update Device
-http://localhost/?url=update--device 
-
-# Payload
-    - name          : string - Value for device name
-    - code          : string - Value for device code 
-    - device_id     : integer - Value for device id
-
-
-# Add Device Record
+# Add Device Record Example
 http://localhost/?url=add--device--record 
 
 # Payload
