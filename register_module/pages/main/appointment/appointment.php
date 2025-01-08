@@ -1,20 +1,17 @@
-<div class="col-md-12">
-    <div class="card">
+<div class="appointment-list d-flex gap-2">
+    <!-- <div class="card">
         <div class="card-body">
             <div class="d-flex justify-content-between align-items-center">
                 <h5 class="card-title">Appointment List</h5>
-                <!-- <div>
-                    <button class="btn btn-primary btn-action" data-action="create">Add</button>
-                </div> -->
+
             </div>
-            <!-- Table with stripped rows -->
+           
             <div class="table-responsive">
                 <table class="table table-striped" id="agent-table">
                 </table>
             </div>
-            <!-- End Table with stripped rows -->
         </div>
-    </div>
+    </div> -->
 </div>
 
 <script src="/assets/plugin/datatables.net/js/jquery.dataTables.min.js"></script>
@@ -33,10 +30,10 @@
 				main: null
 			},
             init: function(){
-                this.getMember();
+                this.getAppointment();
                 this.event();
             },
-            getMember: function(){
+            getMemberTable: function(){
                 const s = this;
 	        	if ($.fn.DataTable.isDataTable(this.table.main)) {
 	        		$(this.table.main).DataTable().destroy();
@@ -112,16 +109,183 @@
 					]
 	        	});
             },
+			getAppointment: function(){
+				const s = this;
+				const curDate = new Date();
+				const iMonth = curDate.getMonth() + 1;
+				const iDay = curDate.getDate();
+				const today = `${curDate.getFullYear()}-${iMonth > 10 ? iMonth : `0${iMonth}`}-${iDay > 10 ? iDay : `0${iDay}`}`
+				let input = {date: today}
+				$.post('/?url=appointment/list/daily', input).done(function(res){
+                    if(res.status){
+                        s.loadAppointment(res.data);
+                    }
+                })
+			},
+			loadAppointment: function(param){
+				let html = "";
+				if(typeof param != 'undefined' && param.length){
+					for(let i in param){
+						const value = param[i];
+						html += `
+							<div class="card col-md-3">
+								<div class="card-body">
+									<h5 class="card-title">${value.reference}</h5>
+									<h6 class="card-subtitle mb-2 text-muted">${value.patient_name}</h6>
+									<p class="card-text">${value.service_desc}</p>
+									<p class="card-text">
+										<a class="btn btn-primary btn-action" data-action="upload" data-id="${value.appointment_id}" data-reference="${value.reference}" data-patient="${value.patient_code}">Upload</a>
+										<a class="btn btn-primary btn-action" data-action="view_images" data-id="${value.appointment_id}" data-reference="${value.reference}" data-patient="${value.patient_code}">View Images</a>
+									</p>
+								</div>
+							</div>
+						`
+					}
+				}
+				$('.appointment-list').html(html);
+			},
+			loadAppointmentImages: function(param){
+				let html = "";
+				if(typeof param != 'undefined' && param.length){
+					for(let i in param){
+						const value = param[i];
+						html += `
+							<div class="card col-md-6">
+								<div class="card-body">
+									<img data-url="${value.file}" src="${value.file}" class="card-img-top" alt="...">
+								</div>
+							</div>
+						`
+					}
+					swal.fire({
+						title: 'Uploaded Images',
+						className: "swal-wide",
+						html : `
+							<div class="d-flex flex-wrap" id="appointment_images" style="width: 100%;">
+								${html}
+							</div>
+						`,
+						didOpen:function(){
+							new Viewer(document.getElementById('appointment_images'), {
+                        		url: 'data-url',
+                    		});
+						}
+					})
+				}
+			},
             event: function(){
                 const s = this;
 				$('body').on('click', '.btn-action', function(){
                     const local = $(this);
                     const action = local.attr('data-action');
-                    const tdata = s.datatable.main.row($(this.closest("tr"))).data();
+                    let tdata = null;
                     if(typeof action != 'undefined'){
                         switch(action){
-                            case 'view':
-								window.location.href = `/?url=appointment/information&id=${tdata.appointment_id}`;
+                            case 'view_images':
+								const aRef = local.attr('data-reference');
+								const aPatient = local.attr('data-patient');
+								$.post('/?url=appointment/patient/files', {reference: aRef, patient: aPatient}).done(function(res){
+									console.log(res);
+									if(res.status){
+										s.loadAppointmentImages(res.data);
+									}
+								})
+								// const id = local.attr('data-id');
+								// if(typeof id != 'undefined'){
+								// 	window.location.href = `/?url=appointment/information&id=${id}`;
+								// }
+							break;
+							case 'upload':
+								const aID = local.attr('data-id');
+								const reference = local.attr('data-reference');
+								const patient = local.attr('data-patient');
+								const option = {
+									icon: 'info',
+									title:`Upload Images`,
+									html: `
+										<div style="text-align: left;">
+											<form id="upload-form">
+											<div>
+												<label for="inputNumber" class="col-form-label">Reference: <b>${reference}</b></label>
+											</div>
+											<div class="mb-3">
+												<label for="inputNumber" class="col-form-label">File Upload</label>
+												<div class="col-sm-12">
+													<input class="form-control" type="file" name="upload_file" id="upload_file">
+												</div>
+											</div>
+											<div style="text-align: center;">
+												<button type="submit" class="swal2-confirm swal2-styled" aria-label="" style="display: inline-block;">Upload</button>
+												<button type="button" class="swal2-deny swal2-styled btn-action" data-action="close-swal" aria-label="" style="display: inline-block;">Cancel</button>
+											</div>
+											</form>
+										</div>
+									`,
+									didOpen:function(){
+										$('#upload-form').validate({
+											messages: {
+												required: "This field is required.",
+											},
+											rules: {
+												upload_file: 'required'
+											},
+											errorClass: 'is-invalid',
+											errorPlacement: function(error, element) {
+												const name = element.attr('name');
+												element.parent().find('.invalid-feedback').html(error)
+													.addClass("show-display");
+											},
+											submitHandler: function(form) {
+												console.log(form);
+												const uploadFile = $('#upload_file').prop('files')[0];
+												const formInput = new FormData();                  
+    	
+												formInput.append('patient', patient);
+												formInput.append('reference', reference);
+												formInput.append('file', uploadFile);
+												
+												swal.fire({
+													title: "File is being upload.",
+													allowOutsideClick: false
+												})
+												swal.showLoading();
+												$.ajax({
+													url: '/?url=appointment/patient/files/upload', 
+													dataType: 'json', 
+													cache: false,
+													contentType: false,
+													processData: false,
+													data: formInput,                         
+													type: 'post',
+													success: function(res){
+														console.log(res);
+														if(res.status){
+															swal.fire({
+																icon: 'success',
+																title: 'Upload Success',
+																text: 'File upload successfully.'
+															})
+														}else{
+															swal.fire({
+																icon: 'error',
+																title: 'Error',
+																text: res.message
+															})
+														}
+													}
+												});
+											}
+										})
+									},
+									showCloseButton: false,
+									showCancelButton: false,
+									showDenyButton: false,
+									showConfirmButton: false
+								}
+								swal.fire(option);
+							break;
+							case "close-swal":
+								swal.close();
 							break;
 						}
 					}

@@ -195,6 +195,11 @@
   <script src="/assets/template/admin/vendor/tinymce/tinymce.min.js"></script>
   <script src="/assets/template/admin/vendor/php-email-form/validate.js"></script>
   <script src="/assets/plugin/sweetalert2/sweetalert2.min.js"></script>
+  <script src="/assets/plugin/validate/dist/jquery.validate.min.js"></script>
+
+  <link href="/assets/plugin/viewerjs/dist/viewer.min.css" rel="stylesheet" />  
+  <script src="/assets/plugin/viewerjs/dist/viewer.min.js" ></script>
+
   <!-- Template Main JS File -->
   <script src="/assets/template/admin/js/main.js"></script>
   <script>

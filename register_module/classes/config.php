@@ -4,7 +4,7 @@
 	/* Database Config */
 	// DEFINE("DB_HOST", "25.17.48.249");
 	
-	DEFINE("DB_HOST", "localhost");
+	DEFINE("DB_HOST", "192.168.1.4");
 	DEFINE("DB_USER", "app_skinology");
 	DEFINE("DB_PASS", "12345");
 	DEFINE("DB_NAME", "skinology");
@@ -29,7 +29,8 @@
 	Define("DEFAULT_REGISTER_BARANGAY", 0);
 	Define("DEFAULT_UPLOAD_DIR", "assets/upload/");
 
-	Define("DEFAULT_IMAGE_DIR", "/home/skinology/Images");
+	Define("DEFAULT_IMAGE_DIR", "assets/upload/");
+	Define("DEFAULT_WEB_IMAGE_DIR", "/assets/upload");
 
 	Define("DEFAULT_FOOTER_COPYRIGHT", '
 		<div class="copyright">© '. date('Y') .'. All rights reserved. </div>

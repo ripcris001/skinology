@@ -75,17 +75,58 @@
             case "appointment/patient/files":
                 try {
                     $fileList = array();
-                    $appointment_path = DEFAULT_IMAGE_DIR . "/" . $app->input->post['patient'] . '/' . $app->input->post['reference'];
+                    $appointment_path = $app->directory->root . "/" . DEFAULT_IMAGE_DIR . "/" . $app->input->post['patient'] . '/' . $app->input->post['reference'];
+                    $webPath = DEFAULT_WEB_IMAGE_DIR . "/" . $app->input->post['patient'] . '/' . $app->input->post['reference'];
                     $files = scandir($appointment_path);
                     if(count($files) > 0){
                         foreach ($files as $file) {
                             $filePath = $appointment_path . '/' . $file;
                             if (is_file($filePath)) {
-                                $fileList[] = array("path" => $filePath, "file" => $file);
+                                $fileList[] = array("path" => $filePath, "file" => $webPath . '/' . $file);
                             }
                         }
+                        $response->status = true;
                     }
                     $response->data = $fileList;
+                } catch (Exception $e) {
+                    $response->message = $e->getMessage();
+                }
+            break;
+
+            case "appointment/patient/files/upload":
+                try {
+                    $fileList = array();
+                    $patientPath = $app->directory->root . "/" . DEFAULT_IMAGE_DIR . "/" . $app->input->post['patient'];
+                    $appointment_path = $patientPath . '/' . $app->input->post['reference'];
+                    $file = $_FILES;
+                    $response->data = $_FILES['file'];
+                    $response->data['patient'] = $app->input->post['patient'];
+                    $response->data['reference'] = $app->input->post['reference'];
+                    $response->data['fullpath'] = $appointment_path;
+                    if ( 0 < $_FILES['file']['error'] ) {
+                        $response->message = 'Error: ' . $_FILES['file']['error'] . '<br>';
+                    } else {
+                        $temp = explode(".", $_FILES["file"]["name"]);
+                        $newfilename = round(microtime(true)) . '.' . end($temp);
+                        
+                        
+                        if(!file_exists( $patientPath ) && !is_dir( $appointment_path )){
+                            mkdir( $patientPath );
+                            if(!file_exists( $appointment_path ) && !is_dir( $appointment_path )){
+                                mkdir( $appointment_path );
+                            }
+                        }else{
+                            if(!file_exists( $appointment_path ) && !is_dir( $appointment_path )){
+                                mkdir( $appointment_path );
+                            }
+                        }
+
+                        move_uploaded_file($_FILES['file']['tmp_name'], $appointment_path . '/' . $newfilename);
+                        $response->data = array();
+                        $response->data["name"] = $newfilename;
+                        $response->data["path"] = $appointment_path;
+                        $response->status = true;
+                    }
                 } catch (Exception $e) {
                     $response->message = $e->getMessage();
                 }
@@ -102,31 +143,6 @@
                     $response->message = $e->getMessage();
                 }
             break;
-
-            // case "users/member/add":
-            //     try {
-            //         $app->input->post['id'] = 0;
-            //         $sp = $app->sp->users->add_update_member($app->input->post);
-            //         $response->query = $sp;
-            //         $response->code = $sp->code;
-            //         $response->status = $sp->status;
-            //         $response->data = $sp->data;
-            //     } catch (Exception $e) {
-            //         $response->message = $e->getMessage();
-            //     }
-            // break;
-
-            // case "users/member/update":
-            //     try {
-            //         $sp = $app->sp->users->add_update_member($app->input->post);
-            //         $response->query = $sp;
-            //         $response->code = $sp->code;
-            //         $response->status = $sp->status;
-            //         $response->data = $sp->data;
-            //     } catch (Exception $e) {
-            //         $response->message = $e->getMessage();
-            //     }
-            // break;
 
             default:
                 $response->message = "Url not found!";
