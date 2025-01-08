@@ -26,7 +26,5 @@ class appointment extends utils {
         $output = $this->DBCon->call($call);
         return $output;
     }
-    
-
 }
 ?>

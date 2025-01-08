@@ -4,9 +4,9 @@
 	/* Database Config */
 	// DEFINE("DB_HOST", "25.17.48.249");
 	
-	DEFINE("DB_HOST", "25.61.111.198");
-	DEFINE("DB_USER", "vlad");
-	DEFINE("DB_PASS", "vl@d1m1r");
+	DEFINE("DB_HOST", "localhost");
+	DEFINE("DB_USER", "app_skinology");
+	DEFINE("DB_PASS", "12345");
 	DEFINE("DB_NAME", "skinology");
 	DEFINE("DB_PORT", 3306);
 	

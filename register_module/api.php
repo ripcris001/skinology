@@ -14,6 +14,7 @@
                 try {
                     if(isset($app->input->post['username'])){
                         $sp = $app->sp->users->getUser($app->input->post);
+                        $response->q = $sp;
                         if($sp->status && $sp->code != 'empty'){
                             $udata = $sp->data;
                             $password = isset($app->input->post['password']) ? md5($app->input->post['password']) : false;

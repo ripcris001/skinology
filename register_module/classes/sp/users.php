@@ -11,7 +11,7 @@ class users extends utils {
         $call->all = isset($all) ? true : null;
         $call->field[] = ["id", isset($param["id"]) ? (int)$param["id"] : 0];
         $call->field[] = ["username", isset($param["username"]) ? $param["username"] : ""];
-
+ 
         # field data decleration
         $output = $this->DBCon->call($call);
         return $output;
