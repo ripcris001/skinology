@@ -92,7 +92,7 @@
                     $response->message = $e->getMessage();
                 }
             break;
-
+ 
             case "appointment/patient/files/upload":
                 try {
                     $fileList = array();

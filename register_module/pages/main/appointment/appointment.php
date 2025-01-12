@@ -1,17 +1,11 @@
-<div class="appointment-list d-flex gap-2">
-    <!-- <div class="card">
-        <div class="card-body">
-            <div class="d-flex justify-content-between align-items-center">
-                <h5 class="card-title">Appointment List</h5>
-
-            </div>
-           
-            <div class="table-responsive">
-                <table class="table table-striped" id="agent-table">
-                </table>
-            </div>
-        </div>
-    </div> -->
+<div class="appointment-list gap-2">
+	<div class="card col-md-3">
+		<div class="card-body">
+			<h5 class="card-title">No Apointment</h5>
+			<h6 class="card-subtitle mb-2 text-muted">Currently no appointment</h6>
+			<p class="card-text"></p>
+		</div>
+	</div>
 </div>
 
 <script src="/assets/plugin/datatables.net/js/jquery.dataTables.min.js"></script>
@@ -116,10 +110,9 @@
 				const iDay = curDate.getDate();
 				const today = `${curDate.getFullYear()}-${iMonth > 10 ? iMonth : `0${iMonth}`}-${iDay > 10 ? iDay : `0${iDay}`}`
 				let input = {date: today}
+				// input = {date: '2024-01-10'}
 				$.post('/?url=appointment/list/daily', input).done(function(res){
-                    if(res.status){
-                        s.loadAppointment(res.data);
-                    }
+                    s.loadAppointment(res.data);
                 })
 			},
 			loadAppointment: function(param){
@@ -132,7 +125,7 @@
 								<div class="card-body">
 									<h5 class="card-title">${value.reference}</h5>
 									<h6 class="card-subtitle mb-2 text-muted">${value.patient_name}</h6>
-									<p class="card-text">${value.service_desc}</p>
+									<p class="card-text">${value.service_desc ? value.service_desc : ""}</p>
 									<p class="card-text">
 										<a class="btn btn-primary btn-action" data-action="upload" data-id="${value.appointment_id}" data-reference="${value.reference}" data-patient="${value.patient_code}">Upload</a>
 										<a class="btn btn-primary btn-action" data-action="view_images" data-id="${value.appointment_id}" data-reference="${value.reference}" data-patient="${value.patient_code}">View Images</a>
@@ -141,6 +134,16 @@
 							</div>
 						`
 					}
+				}else{
+					html += `
+							<div class="card col-md-3">
+								<div class="card-body">
+									<h5 class="card-title">No Apointment</h5>
+									<h6 class="card-subtitle mb-2 text-muted">Currently no appointment</h6>
+									<p class="card-text"></p>
+								</div>
+							</div>
+						`
 				}
 				$('.appointment-list').html(html);
 			},
