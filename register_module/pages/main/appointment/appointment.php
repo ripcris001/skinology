@@ -1,3 +1,11 @@
+<div class="row mb-3">
+	<form id="filterForm">
+		<div class="col-md-6 d-flex justify-content-between gap-2">
+			<input type="date" class="form-control" value="<?php print_r(date("Y-m-d")); ?>">
+			<button type="submit" class="btn btn-primary">Filter</button>
+		</div>
+	</form>
+</div>
 <div class="appointment-list gap-2">
 	<div class="card col-md-3">
 		<div class="card-body">
@@ -24,7 +32,7 @@
 				main: null
 			},
             init: function(){
-                this.getAppointment();
+                this.getAppointment(new Date());
                 this.event();
             },
             getMemberTable: function(){
@@ -103,14 +111,13 @@
 					]
 	        	});
             },
-			getAppointment: function(){
+			getAppointment: function(param){
 				const s = this;
-				const curDate = new Date();
+				const curDate = new Date(param);
 				const iMonth = curDate.getMonth() + 1;
 				const iDay = curDate.getDate();
-				const today = `${curDate.getFullYear()}-${iMonth > 10 ? iMonth : `0${iMonth}`}-${iDay > 10 ? iDay : `0${iDay}`}`
+				const today = `${curDate.getFullYear()}-${iMonth > 9 ? iMonth : `0${iMonth}`}-${iDay > 9 ? iDay : `0${iDay}`}`
 				let input = {date: today}
-				// input = {date: '2024-01-10'}
 				$.post('/?url=appointment/list/daily', input).done(function(res){
                     s.loadAppointment(res.data);
                 })
@@ -292,6 +299,12 @@
 							break;
 						}
 					}
+				})
+				$('body').on('submit', '#filterForm', function(e){
+					e.preventDefault();
+					const form = $(this);
+					const date = form.find('input[type="date"]').val();
+					s.getAppointment(date);
 				})
             }
         }
