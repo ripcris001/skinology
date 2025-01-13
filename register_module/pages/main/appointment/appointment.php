@@ -196,12 +196,20 @@
 								$.post('/?url=appointment/patient/files', {reference: aRef, patient: aPatient}).done(function(res){
 									console.log(res);
 									if(res.status){
-										s.loadAppointmentImages(res.data);
+										if(res.data.length){
+											s.loadAppointmentImages(res.data);
+										}else{
+											swal.fire({
+												icon:"warning",
+												title: 'No uploaded images',
+												text: 'No images uploaded on this appointment'
+											})
+										}
 									}else{
 										swal.fire({
-											icon:"warning",
-											title: 'No uploaded images',
-											text: 'No images uploaded on this appointment'
+											icon: "error",
+											title: 'Error',
+											text: res.message
 										})
 									}
 								})

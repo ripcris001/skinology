@@ -77,16 +77,21 @@
                     $fileList = array();
                     $appointment_path = $app->directory->root . "/" . DEFAULT_IMAGE_DIR . "/" . $app->input->post['patient'] . '/' . $app->input->post['reference'];
                     $webPath = DEFAULT_WEB_IMAGE_DIR . "/" . $app->input->post['patient'] . '/' . $app->input->post['reference'];
-                    $files = scandir($appointment_path);
-                    if(count($files) > 0){
-                        foreach ($files as $file) {
-                            $filePath = $appointment_path . '/' . $file;
-                            if (is_file($filePath)) {
-                                $fileList[] = array("path" => $filePath, "file" => $webPath . '/' . $file);
+                    if(is_dir($webPath)){
+                        $files = scandir($appointment_path);
+                        if(count($files) > 0){
+                            foreach ($files as $file) {
+                                $filePath = $appointment_path . '/' . $file;
+                                if (is_file($filePath)) {
+                                    $fileList[] = array("path" => $filePath, "file" => $webPath . '/' . $file);
+                                }
                             }
+                            $response->status = true;
                         }
-                        $response->status = true;
+                    }else{
+                        $response->message = "Appointment image folder doesnt exist on server.";
                     }
+                    
                     $response->data = $fileList;
                 } catch (Exception $e) {
                     $response->message = $e->getMessage();
