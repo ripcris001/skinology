@@ -144,6 +144,18 @@
                 }
             break;
 
+            case "patient/list":
+                try {
+                    $sp = $app->sp->appointment->getPatient($app->input->post, true);
+                    $response->query = $sp;
+                    $response->code = $sp->code;
+                    $response->status = $sp->status;
+                    $response->data = $sp->data;
+                } catch (Exception $e) {
+                    $response->message = $e->getMessage();
+                }
+            break;
+
             default:
                 $response->message = "Url not found!";
                 $response->code = 404;

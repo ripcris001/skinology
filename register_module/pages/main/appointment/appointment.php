@@ -54,7 +54,6 @@
 							const iDay = curDate.getDate();
 							const today = `${curDate.getFullYear()}-${iMonth > 10 ? iMonth : `0${iMonth}`}-${iDay > 10 ? iDay : `0${iDay}`}`
 							let input = {date: today}
-							// input = JSON.stringify(input);
 							return input;
 						},
 	        			url: "/?url=appointment/list/daily",
@@ -198,6 +197,12 @@
 									console.log(res);
 									if(res.status){
 										s.loadAppointmentImages(res.data);
+									}else{
+										swal.fire({
+											icon:"warning",
+											title: 'No uploaded images',
+											text: 'No images uploaded on this appointment'
+										})
 									}
 								})
 								// const id = local.attr('data-id');

@@ -30,6 +30,14 @@
                 $utils->render($app, ["admin", "member"]);
             break;
 
+            case "patient":
+                session_handler('main');
+                $app->data->access = "Patient";
+                $app->data->subtitle = "Patient Information";
+                $app->template->page = $utils->buildpath("pages/main/patient/list.php");
+                $utils->render($app, ["admin", "member"]);
+            break;
+
             // case "members":
             //     session_handler('main');
             //     $app->data->access = "Member List";
