@@ -1,7 +1,7 @@
 <div class="row mb-3">
 	<form id="filterForm">
 		<div class="col-md-6 d-flex justify-content-between gap-2">
-			<input type="date" class="form-control" value="<?php print_r(date("Y-m-d")); ?>">
+			<input type="date" class="form-control datepickerinput" value="<?php print_r(date("Y-m-d")); ?>">
 			<button type="submit" class="btn btn-primary">Filter</button>
 		</div>
 	</form>
@@ -129,7 +129,15 @@
 						html += `
 							<div class="card col-md-3">
 								<div class="card-body">
-									<h5 class="card-title">${value.reference}</h5>
+									<div class="d-flex justify-content-between mt-2">
+										<span class="card-title">
+											${value.reference}
+										</span>
+										<span class="card-title">
+											${value.date}
+										</span>
+									</div>
+									<h6 class="card-subtitle mb-2 text-muted">${value.patient_code}</h6>
 									<h6 class="card-subtitle mb-2 text-muted">${value.patient_name}</h6>
 									<p class="card-text">${value.service_desc ? value.service_desc : ""}</p>
 									<p class="card-text">
@@ -168,7 +176,6 @@
 					}
 					swal.fire({
 						title: 'Uploaded Images',
-						className: "swal-wide",
 						html : `
 							<div class="d-flex flex-wrap" id="appointment_images" style="width: 100%;">
 								${html}

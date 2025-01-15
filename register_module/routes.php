@@ -38,6 +38,16 @@
                 $utils->render($app, ["admin", "member"]);
             break;
 
+            case "appointment/images/gallery":
+                session_handler('main');
+                $app->data->access =  $utils->buildpath("template/viewer/layout.php");
+                $app->data->access = "Image Viewer";
+                $app->data->subtitle = "Image Viewer";
+                $app->template->page = $utils->buildpath("pages/main/viewer/images.php");
+                $utils->render($app, ["admin", "member"]);
+            break;
+
+
             // case "members":
             //     session_handler('main');
             //     $app->data->access = "Member List";

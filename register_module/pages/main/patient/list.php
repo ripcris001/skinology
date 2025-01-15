@@ -6,23 +6,14 @@
 		</div>
 	</form>
 </div>
-<div class="col-md-12">
-    <div class="card">
-        <div class="card-body">
-            <div class="d-flex justify-content-between align-items-center">
-                <h5 class="card-title">Patient List</h5>
-                <!-- <div>
-                    <button class="btn btn-primary btn-action" data-action="create">Add</button>
-                </div> -->
-            </div>
-            <!-- Table with stripped rows -->
-            <div class="table-responsive">
-                <table class="table table-striped" id="agent-table">
-                </table>
-            </div>
-            <!-- End Table with stripped rows -->
-        </div>
-    </div>
+<div class="main-list gap-2">
+	<div class="card col-md-3">
+		<div class="card-body">
+			<h5 class="card-title">No Patient</h5>
+			<h6 class="card-subtitle mb-2 text-muted">Currently no patient listed</h6>
+			<p class="card-text"></p>
+		</div>
+	</div>
 </div>
 <script src="/assets/plugin/datatables.net/js/jquery.dataTables.min.js"></script>
 <script src="/assets/plugin/datatables.net-bs4/js/dataTables.bootstrap4.min.js"></script>
@@ -39,9 +30,91 @@
 				main: null
 			},
             init: function(){
-                this.loadtable('');
+                this.getPatient('');
                 this.event();
             },
+			getPatient: function(param){
+				const s = this;
+				let input = {search: param}
+				$.post('/?url=patient/list', input).done(function(res){
+                    s.loadPatient(res.data);
+                })
+			},
+			getPatientHistory: function(param){
+				const s = this;
+				let input = param;
+				$.post('/?url=patient/history', input).done(function(res){
+                    s.loadPatientHistory(res.data);
+                })
+			},
+			loadPatient: function(param){
+				let html = "";
+				if(typeof param != 'undefined' && param.length){
+					for(let i in param){
+						const value = param[i];
+						html += `
+							<div class="card col-md-3">
+								<div class="card-body">
+									<div class="d-flex justify-content-between mt-2">
+										<span class="card-title">
+											${value.patient_name}
+										</span>
+									</div>
+									<h6 class="card-subtitle mb-2 text-muted">${value.code}</h6>
+									<p class="card-text">
+										<a class="btn btn-primary btn-action" data-action="view_history" data-id="${value.patient_id}" data-code="${value.code}">View History</a>
+									</p>
+								</div>
+							</div>
+						`
+					}
+				}else{
+					html += `
+							<div class="card col-md-3">
+								<div class="card-body">
+									<h5 class="card-title">No Patient</h5>
+									<h6 class="card-subtitle mb-2 text-muted">Currently no patient listed</h6>
+									<p class="card-text"></p>
+								</div>
+							</div>
+						`
+				}
+				$('.main-list').html(html);
+			},
+			loadPatientHistory: function(param){
+				let html = "";
+				if(typeof param != 'undefined' && param.length){
+					for(let i in param){
+						const value = param[i];
+						html += `
+							<div class="card col-md-3">
+								<div class="card-body">
+									<div class="d-flex justify-content-between mt-2">
+										<span class="card-title">
+											${value.patient_name}
+										</span>
+									</div>
+									<h6 class="card-subtitle mb-2 text-muted">${value.code}</h6>
+									<p class="card-text">
+										<a class="btn btn-primary btn-action" data-action="view_history" data-id="${value.patient_id}" data-code="${value.code}">View History</a>
+									</p>
+								</div>
+							</div>
+						`
+					}
+				}else{
+					html += `
+							<div class="card col-md-3">
+								<div class="card-body">
+									<h5 class="card-title">No Patient</h5>
+									<h6 class="card-subtitle mb-2 text-muted">Currently no patient listed</h6>
+									<p class="card-text"></p>
+								</div>
+							</div>
+						`
+				}
+				$('.main-list').html(html);
+			},
             loadtable: function(param){
                 const s = this;
 	        	if ($.fn.DataTable.isDataTable(this.table.main)) {
@@ -108,7 +181,21 @@
 					e.preventDefault();
 					const form = $(this);
 					const filter = form.find('input[type="text"]').val();
-					s.loadtable(filter);
+					s.getPatient(filter);
+				})
+
+				$('body').on('click', '.btn-action', function(){
+					const local = $(this);
+					const action = local.attr('action');
+					if(typeof action != 'undfined'){
+						switch(action){
+							case "view_history":
+								const id = local.attr('id');
+								const code = local.attr('code');
+								s.getPatientHistory({id: id, code: code});
+							break;
+						}
+					}
 				})
             }
         }

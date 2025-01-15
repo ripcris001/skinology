@@ -77,7 +77,7 @@
                     $fileList = array();
                     $appointment_path = $app->directory->root . "/" . DEFAULT_IMAGE_DIR . "/" . $app->input->post['patient'] . '/' . $app->input->post['reference'];
                     $webPath = DEFAULT_WEB_IMAGE_DIR . "/" . $app->input->post['patient'] . '/' . $app->input->post['reference'];
-                    if(is_dir($webPath)){
+                    if(is_dir($appointment_path)){
                         $files = scandir($appointment_path);
                         if(count($files) > 0){
                             foreach ($files as $file) {
@@ -152,6 +152,18 @@
             case "patient/list":
                 try {
                     $sp = $app->sp->appointment->getPatient($app->input->post, true);
+                    $response->query = $sp;
+                    $response->code = $sp->code;
+                    $response->status = $sp->status;
+                    $response->data = $sp->data;
+                } catch (Exception $e) {
+                    $response->message = $e->getMessage();
+                }
+            break;
+
+            case "patient/history":
+                try {
+                    $sp = $app->sp->appointment->getPatientHistory($app->input->post, true);
                     $response->query = $sp;
                     $response->code = $sp->code;
                     $response->status = $sp->status;

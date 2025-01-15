@@ -37,5 +37,16 @@ class appointment extends utils {
         $output = $this->DBCon->call($call);
         return $output;
     }
+
+    public function getPatientHistory($param, $all = null){
+        $call = $this->newsp("sp_web_get_patient_list");
+		$call->action = "get";
+        $call->all = isset($all) ? true : null;
+        $call->field[] = ["search", isset($param["search"]) ? $param["search"] : ""];
+
+        # field data decleration
+        $output = $this->DBCon->call($call);
+        return $output;
+    }
 }
 ?>
