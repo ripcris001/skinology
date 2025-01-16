@@ -39,7 +39,6 @@
             break;
 
             case "appointment/images/gallery":
-                session_handler('main', 1);
                 $app->template->layout =  $utils->buildpath("template/viewer/layout.php");
                 $app->data->access = "Image Viewer";
                 $app->data->subtitle = "Image Viewer";
