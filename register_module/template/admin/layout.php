@@ -46,6 +46,14 @@
   <!-- Sweetalert Plugin File -->
   <script src="/assets/plugin/sweetalert2/sweetalert2.all.min.js"></script>
   <link rel="stylesheet" href="/assets/plugin/sweetalert2/sweetalert2.min.css">
+  <style>
+    .hightlight-title{
+      font-size: 18px;
+      font-weight: 500;
+      color: #012970;
+      font-family: "Poppins", sans-serif;
+    }
+  </style>
 </head>
 
 <body

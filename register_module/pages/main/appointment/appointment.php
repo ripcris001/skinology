@@ -130,15 +130,17 @@
 							<div class="card col-md-3">
 								<div class="card-body">
 									<div class="d-flex justify-content-between mt-2">
-										<span class="card-title">
-											${value.reference}
-										</span>
-										<span class="card-title">
+										<span class="hightlight-title">
 											${value.date}
 										</span>
 									</div>
+									<div class="d-flex justify-content-between mb-4">
+										<span class="hightlight-title">
+											${value.reference}
+										</span>
+									</div>
 									<h6 class="card-subtitle mb-2 text-muted">${value.patient_code}</h6>
-									<h6 class="card-subtitle mb-2 text-muted">${value.patient_name}</h6>
+									<h6 class="mb-2 hightlight-title">${value.patient_name}</h6>
 									<p class="card-text">${value.service_desc ? value.service_desc : ""}</p>
 									<p class="card-text">
 										<a class="btn btn-primary btn-action" data-action="upload" data-id="${value.appointment_id}" data-reference="${value.reference}" data-patient="${value.patient_code}">Upload</a>

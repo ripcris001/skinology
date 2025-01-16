@@ -39,10 +39,10 @@ class appointment extends utils {
     }
 
     public function getPatientHistory($param, $all = null){
-        $call = $this->newsp("sp_web_get_patient_list");
+        $call = $this->newsp("sp_web_get_patient_appointment_list");
 		$call->action = "get";
         $call->all = isset($all) ? true : null;
-        $call->field[] = ["search", isset($param["search"]) ? $param["search"] : ""];
+        $call->field[] = ["id", isset($param["id"]) ? (int)$param["id"] : 0];
 
         # field data decleration
         $output = $this->DBCon->call($call);
