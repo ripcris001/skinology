@@ -52,53 +52,58 @@
             $app->data->sidebar = $app->data->agentSidebar;
         }
 
-        function session_handler($param, $mode = 0){
-            if($mode == 0){
-                if($param == 'admin'){
-                    if(isset($_SESSION["user_data"])){
-                        return true;
-                    }else{
-                        header("location: ". ROOT_URL ."?url=admin/login");
-                    }
-                }else if($param == 'main'){
-                    if(isset($_SESSION["user_data"])){
-                        return true;
-                    }else{
-                        header("location: ". ROOT_URL ."?url=login");
-                    }
-                }else{
-                    if(isset($_SESSION["user_data"])){
-                        return true;
-                    }else{
-                        header("location: ". ROOT_URL ."?url=". $param ."/login");
-                    }
-                }
+        function session_handler($param, $mode = 0, $ishome = false){
+            if($ishome){
+                header("location:  ". ROOT_URL ."?url=home");
             }else{
-                if($param == 'admin'){
-                    if(isset($_SESSION["user_data"])){
-                        header("location:  ". ROOT_URL ."?url=admin");
+                if($mode == 0){
+                    if($param == 'admin'){
+                        if(isset($_SESSION["user_data"])){
+                            return true;
+                        }else{
+                            header("location: ". ROOT_URL ."?url=admin/login");
+                        }
+                    }else if($param == 'main'){
+                        if(isset($_SESSION["user_data"])){
+                            return true;
+                        }else{
+                            header("location: ". ROOT_URL ."?url=login");
+                        }
                     }else{
-                        return true;
-                    }
-                }else if($param == 'main'){
-                    if(isset($_SESSION["user_data"])){
-                        header("location:  ". ROOT_URL ."?url=home");
-                    }else{
-                        return true;
+                        if(isset($_SESSION["user_data"])){
+                            return true;
+                        }else{
+                            header("location: ". ROOT_URL ."?url=". $param ."/login");
+                        }
                     }
                 }else{
-                    if(isset($_SESSION["user_data"])){
-                        header("location:  ". ROOT_URL ."?url=". $param);
+                    if($param == 'admin'){
+                        if(isset($_SESSION["user_data"])){
+                            header("location:  ". ROOT_URL ."?url=admin");
+                        }else{
+                            return true;
+                        }
+                    }else if($param == 'main'){
+                        if(isset($_SESSION["user_data"])){
+                            header("location:  ". ROOT_URL ."?url=home");
+                        }else{
+                            return true;
+                        }
                     }else{
-                        return true;    
+                        if(isset($_SESSION["user_data"])){
+                            header("location:  ". ROOT_URL ."?url=". $param);
+                        }else{
+                            return true;    
+                        }
                     }
                 }
             }
-        }   
+            
+        }    
 
         if($server->request->method == 'GET'){
             if(isset($SERVER_IS_HOMEPAGE) && $SERVER_IS_HOMEPAGE){
-                session_handler(WEBSITE_HOMEPAGE);
+                session_handler(WEBSITE_HOMEPAGE, 0, true);
             }else{
                 require_once($utils->buildpath("routes.php", true));
             }

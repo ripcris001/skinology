@@ -40,7 +40,7 @@
 
             case "appointment/images/gallery":
                 session_handler('main');
-                $app->data->access =  $utils->buildpath("template/viewer/layout.php");
+                $app->template->layout =  $utils->buildpath("template/viewer/layout.php");
                 $app->data->access = "Image Viewer";
                 $app->data->subtitle = "Image Viewer";
                 $app->template->page = $utils->buildpath("pages/main/viewer/images.php");
