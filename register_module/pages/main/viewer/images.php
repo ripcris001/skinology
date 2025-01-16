@@ -16,7 +16,6 @@
                     $filePath = $appointment_path . '/' . $file;
                     if (is_file($filePath)) {
                         $fileList[] = array("path" => $filePath, "file" => $webPath . '/' . $file);
-
                     }
                 }
                 $isView = true;

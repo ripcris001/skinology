@@ -44,7 +44,7 @@
                 $app->data->access = "Image Viewer";
                 $app->data->subtitle = "Image Viewer";
                 $app->template->page = $utils->buildpath("pages/main/viewer/images.php");
-                $utils->render($app, ["admin", "member"]);
+                $utils->render($app);
             break;
 
 
