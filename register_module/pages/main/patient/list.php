@@ -55,12 +55,12 @@
 						html += `
 							<div class="card col-md-3">
 								<div class="card-body">
+									<h6 class="card-subtitle mb-2 text-muted">${value.code}</h6>
 									<div class="d-flex justify-content-between mt-2">
 										<span class="card-title">
 											${value.patient_name}
 										</span>
 									</div>
-									<h6 class="card-subtitle mb-2 text-muted">${value.code}</h6>
 									<p class="card-text">
 										<a class="btn btn-primary btn-action" data-action="view_history" data-id="${value.patient_id}" data-code="${value.code}">View History</a>
 									</p>
