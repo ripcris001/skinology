@@ -55,9 +55,9 @@
 						html += `
 							<div class="card col-md-3">
 								<div class="card-body">
-									<h6 class="card-subtitle mb-2 text-muted">${value.code}</h6>
-									<div class="d-flex justify-content-between mt-2">
-										<span class="card-title">
+									<h6 class="card-subtitle mt-3 text-muted">${value.code}</h6>
+									<div class="d-flex justify-content-between mb-3">
+										<span class="hightlight-title">
 											${value.patient_name}
 										</span>
 									</div>
