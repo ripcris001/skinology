@@ -5,10 +5,10 @@
             <?php print_r(isset($app->data->header_subtitle) ? " | ".$app->data->header_subtitle : ""); ?>
         </title>
         <link href="/assets/template/admin/css/style.css" rel="stylesheet">
-        <link href="/assets/custom_assets/css/main/custom.css" rel="stylesheet">
+        <link href="/assets/custom/css/main/custom.css" rel="stylesheet">
         
         <script src="/assets/plugin/jquery/jquery.min.js"></script>
-        <script src="/assets/custom_assets/js/custom.js"></script>
+        <script src="/assets/custom/js/custom.js"></script>
 
         <link href="/assets/plugin/slider/swiper-bundle.min.css" rel="stylesheet">
         <script src="/assets/plugin/slider/swiper-bundle.min.js"></script>

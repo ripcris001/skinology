@@ -113,8 +113,6 @@
                     } else {
                         $temp = explode(".", $_FILES["file"]["name"]);
                         $newfilename = round(microtime(true)) . '.' . end($temp);
-                        
-                        
                         if(!file_exists( $patientPath ) && !is_dir( $appointment_path )){
                             mkdir( $patientPath );
                             if(!file_exists( $appointment_path ) && !is_dir( $appointment_path )){
@@ -125,8 +123,14 @@
                                 mkdir( $appointment_path );
                             }
                         }
-
-                        move_uploaded_file($_FILES['file']['tmp_name'], $appointment_path . '/' . $newfilename);
+                        if(move_uploaded_file($_FILES['file']['tmp_name'], $appointment_path . '/' . $newfilename)){
+                            $input = array("reference" => $app->input->post['reference'], "filename" => $newfilename, "user_id" => $app->session->user["user_id"]);
+                            $sp = $app->sp->appointment->uploadImage($input);
+                            if($sp->status){
+                                $response->res = $response->data;
+                            }
+                        }
+                        
                         $response->data = array();
                         $response->data["name"] = $newfilename;
                         $response->data["path"] = $appointment_path;
