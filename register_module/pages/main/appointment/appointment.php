@@ -203,7 +203,6 @@
 								const aRef = local.attr('data-reference');
 								const aPatient = local.attr('data-patient');
 								$.post('/?url=appointment/patient/files', {reference: aRef, patient: aPatient}).done(function(res){
-									console.log(res);
 									if(res.status){
 										if(res.data.length){
 											s.loadAppointmentImages(res.data);
@@ -222,10 +221,10 @@
 										})
 									}
 								})
-								// const id = local.attr('data-id');
-								// if(typeof id != 'undefined'){
-								// 	window.location.href = `/?url=appointment/information&id=${id}`;
-								// }
+								const id = local.attr('data-id');
+								if(typeof id != 'undefined'){
+									window.location.href = `/?url=appointment/information&id=${id}`;
+								}
 							break;
 							case 'upload':
 								const aID = local.attr('data-id');

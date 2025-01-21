@@ -78,12 +78,14 @@
                     $appointment_path = $app->directory->root . "/" . DEFAULT_IMAGE_DIR . "/" . $app->input->post['patient'] . '/' . $app->input->post['reference'];
                     $webPath = DEFAULT_WEB_IMAGE_DIR . "/" . $app->input->post['patient'] . '/' . $app->input->post['reference'];
                     if(is_dir($appointment_path)){
+                        $sp = $app->sp->appointment->getImageUpload(array("reference" => $app->input->post['reference']));
                         $files = scandir($appointment_path);
                         if(count($files) > 0){
                             foreach ($files as $file) {
                                 $filePath = $appointment_path . '/' . $file;
                                 if (is_file($filePath)) {
-                                    $fileList[] = array("path" => $filePath, "file" => $webPath . '/' . $file);
+                                    $sp = $app->sp->appointment->getImageUpload(array("reference" => $app->input->post['reference'], "filename" => $file));
+                                    $fileList[] = array("path" => $filePath, "file" => $webPath . '/' . $file, "data" => $sp->status ? $sp->data : new stdClass());
                                 }
                             }
                             $response->status = true;

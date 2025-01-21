@@ -48,7 +48,7 @@ class appointment extends utils {
         $output = $this->DBCon->call($call);
         return $output;
     }
-
+    
     public function uploadImage($param, $all = null){
         $call = $this->newsp("sp_web_new_appointment_image");
 		$call->action = "get";
@@ -61,5 +61,18 @@ class appointment extends utils {
         $output = $this->DBCon->call($call);
         return $output;
     }
+
+    public function getImageUpload($param, $all = null){
+        $call = $this->newsp("sp_web_get_appointment_image_info");
+		$call->action = "get";
+        $call->all = isset($all) ? true : null;
+        $call->field[] = ["reference", isset($param["reference"]) ? $param["reference"] : ""];
+        $call->field[] = ["filename", isset($param["filename"]) ? $param["filename"] : ""];
+
+        # field data decleration
+        $output = $this->DBCon->call($call);
+        return $output;
+    }
+
 }
 ?>
