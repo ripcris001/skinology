@@ -127,7 +127,7 @@
                             $input = array("reference" => $app->input->post['reference'], "filename" => $newfilename, "user_id" => $app->session->user["user_id"]);
                             $sp = $app->sp->appointment->uploadImage($input);
                             if($sp->status){
-                                $response->res = $response->data;
+                                $response->res = $sp;
                             }
                         }
                         
