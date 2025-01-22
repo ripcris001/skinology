@@ -221,10 +221,10 @@
 										})
 									}
 								})
-								const id = local.attr('data-id');
-								if(typeof id != 'undefined'){
-									window.location.href = `/?url=appointment/information&id=${id}`;
-								}
+								// const id = local.attr('data-id');
+								// if(typeof id != 'undefined'){
+								// 	window.location.href = `/?url=appointment/information&id=${id}`;
+								// }
 							break;
 							case 'upload':
 								const aID = local.attr('data-id');
