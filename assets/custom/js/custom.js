@@ -15,10 +15,12 @@ function dateFormat(param){
         day: date.getDate(),
         hour: date.getHours(),
         minutes: date.getMinutes(),
-        seconds: date.getSeconds()
+        seconds: date.getSeconds(),
+        median: date.getHours() >= 12 ? "PM" : 'AM',
+        hour_median: date.getHours() >= 12 ? (date.getHours() - 12) : date.getHours()
     }
 
-    const parseValue = ['month','day','hour','minutes','seconds'];
+    const parseValue = ['month','day','hour','minutes','seconds','hour_median'];
     if(parseValue.length){
         for(let i in parseValue){
             const value = parseValue[i];

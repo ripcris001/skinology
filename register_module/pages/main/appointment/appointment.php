@@ -182,7 +182,7 @@
 										}
 										${ typeof value['data']['date_uploaded'] != 'undefined' ? 
 										`<div class="d-flex justify-content-center">
-											<span class="text-muted">${pd.year}-${pd.month}-${pd.day}</span>
+											<span class="text-muted">${pd.year}-${pd.month}-${pd.day} ${pd.hour_median}:${pd.minutes} ${pd.median}</span>
 										</div>` : ""
 										}
 									</div>
