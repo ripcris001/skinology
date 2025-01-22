@@ -174,14 +174,18 @@
 								<div class="card-body">
 									<img data-url="${value.file}" src="${value.file}" class="card-img-top" alt="...">
 									<div>
-										<div class="d-flex justify-content-between">
-											<span>Uplaoded By</span>
-											<span>${typeof value['data']['uploaded_by'] != 'undefined' ? value['data']['uploaded_by'] : ""}</span>
-										</div>
-										<div class="d-flex justify-content-between">
-											<span>Date Uploaded</span>
-											<span>${typeof value['data']['date_uploaded'] != 'undefined' ? value['data']['date_uploaded'] : ""}</span>
-										</div>
+										${ typeof value['data']['uploaded_by'] != 'undefined' ?
+											`<div class="d-flex justify-content-between">
+												<span>Uploader</span>
+												<span>${value['data']['uploaded_by']}</span>
+											</div>` : ""
+										}
+										${ typeof value['data']['date_uploaded'] != 'undefined' ? 
+										`<div class="d-flex justify-content-between">
+											<span>Date</span>
+											<span>${value['data']['date_uploaded']}</span>
+										</div>` : ""
+										}
 									</div>
 								</div>
 							</div>
