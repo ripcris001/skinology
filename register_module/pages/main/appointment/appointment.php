@@ -169,21 +169,20 @@
 					for(let i in param){
 						const value = param[i];
 						let addLabel = "";
+						const pd = dateFormat(value['data']['date_uploaded']);
 						html += `
 							<div class="card col-md-6">
 								<div class="card-body">
 									<img data-url="${value.file}" src="${value.file}" class="card-img-top" alt="...">
 									<div>
 										${ typeof value['data']['uploaded_by'] != 'undefined' ?
-											`<div class="d-flex justify-content-between">
-												<span>Uploader</span>
-												<span>${value['data']['uploaded_by']}</span>
+											`<div class="d-flex justify-content-center">		
+												<span class="hightlight-title">${value['data']['uploaded_by']}</span>
 											</div>` : ""
 										}
 										${ typeof value['data']['date_uploaded'] != 'undefined' ? 
-										`<div class="d-flex justify-content-between">
-											<span>Date</span>
-											<span>${value['data']['date_uploaded']}</span>
+										`<div class="d-flex justify-content-center">
+											<span class="text-muted">${pd.year}-${pd.month}-${pd.day}</span>
 										</div>` : ""
 										}
 									</div>

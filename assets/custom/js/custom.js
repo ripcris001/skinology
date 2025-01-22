@@ -6,3 +6,27 @@ function currency(param){
     param = `₱ ${param}`;
     return param;
 }
+function dateFormat(param){
+    const date = typeof param != 'undefined' ? new Date(param) : new Date();
+    const obj = {
+        year: date.getFullYear,
+        month: date.getMonth(),
+        day: date.getDate(),
+        hour: date.getHours(),
+        minutes: date.getMinutes(),
+        seconds: date.getSeconds()
+    }
+
+    const parseValue = ['month','day','hour','minutes','seconds'];
+    if(parseValue.length){
+        for(let i in parseValue){
+            const value = parseValue[i];
+            if(typeof obj[value] != 'undefined'){
+                if(obj[value] < 9){
+                    obj[value] = `0${obj[value]}`
+                }
+            }
+        }
+    }
+    return obj;
+}
