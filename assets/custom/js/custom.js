@@ -9,7 +9,7 @@ function currency(param){
 function dateFormat(param){
     const date = typeof param != 'undefined' ? new Date(param) : new Date();
     const obj = {
-        year: date.getFullYear,
+        year: date.getFullYear(),
         month: date.getMonth(),
         day: date.getDate(),
         hour: date.getHours(),
