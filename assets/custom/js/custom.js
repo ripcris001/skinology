@@ -10,7 +10,8 @@ function dateFormat(param){
     const date = typeof param != 'undefined' ? new Date(param) : new Date();
     const obj = {
         year: date.getFullYear(),
-        month: date.getMonth(),
+        month_og: date.getMinutes(),
+        month: (date.getMonth() + 1),
         day: date.getDate(),
         hour: date.getHours(),
         minutes: date.getMinutes(),
