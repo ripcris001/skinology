@@ -177,7 +177,7 @@
 									<div>
 										${ typeof value['data']['uploaded_by'] != 'undefined' ?
 											`<div class="d-flex justify-content-center">		
-												<span class="hightlight-title">${value['data']['uploaded_by']}</span>
+												<span class="hightlight-title pt-3">${value['data']['uploaded_by']}</span>
 											</div>` : ""
 										}
 										${ typeof value['data']['date_uploaded'] != 'undefined' ? 
