@@ -168,10 +168,21 @@
 				if(typeof param != 'undefined' && param.length){
 					for(let i in param){
 						const value = param[i];
+						let addLabel = "";
 						html += `
 							<div class="card col-md-6">
 								<div class="card-body">
 									<img data-url="${value.file}" src="${value.file}" class="card-img-top" alt="...">
+									<div>
+										<div class="d-flex justify-content-between">
+											<span>Uplaoded By</span>
+											<span>${typeof value['data']['uploaded_by'] != 'undefined' ? value['data']['uploaded_by'] : ""}</span>
+										</div>
+										<div class="d-flex justify-content-between">
+											<span>Date Uploaded</span>
+											<span>${typeof value['data']['date_uploaded'] != 'undefined' ? value['data']['date_uploaded'] : ""}</span>
+										</div>
+									</div>
 								</div>
 							</div>
 						`
@@ -183,6 +194,9 @@
 								${html}
 							</div>
 						`,
+						customClass:{
+							popup: 'width-m',
+						},
 						didOpen:function(){
 							new Viewer(document.getElementById('appointment_images'), {
                         		url: 'data-url',
@@ -221,10 +235,6 @@
 										})
 									}
 								})
-								// const id = local.attr('data-id');
-								// if(typeof id != 'undefined'){
-								// 	window.location.href = `/?url=appointment/information&id=${id}`;
-								// }
 							break;
 							case 'upload':
 								const aID = local.attr('data-id');
