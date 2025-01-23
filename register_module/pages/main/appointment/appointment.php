@@ -149,7 +149,7 @@
 									<hr>
 									<h6 class="card-text">No. of Images: ${value.no_of_images ? value.no_of_images : ""}</h6>
 									<h6 class="card-text">Status: ${value.status_code_desc ? value.status_code_desc : ""}</h6>
-									${value.employee_name ? `<h6 class="card-text">Esthetician:${value.employee_name ? value.employee_name : ""}</h6>` : ""}
+									${value.employee_name ? `<h6 class="card-text">Esthetician: ${value.employee_name ? value.employee_name : ""}</h6>` : ""}
 									<p class="card-text">
 										<a class="btn btn-primary btn-action" data-action="upload" data-id="${value.appointment_id}" data-reference="${value.reference}" data-patient="${value.patient_code}">Upload</a>
 										<a class="btn btn-primary btn-action" data-action="view_images" data-id="${value.appointment_id}" data-reference="${value.reference}" data-patient="${value.patient_code}">View Images</a>
