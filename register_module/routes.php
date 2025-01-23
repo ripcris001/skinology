@@ -3,6 +3,11 @@
         switch(strtolower($server->request->param_url)){
             case "home":
                 session_handler('main');
+                if(isset($_SESSION["user_data"])){
+                    header("location: /?url=appointment");
+                }else{
+                    header("location: /?url=login");
+                }
             break;
 
             case "login":

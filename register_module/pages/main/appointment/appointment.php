@@ -126,12 +126,16 @@
 				if(typeof param != 'undefined' && param.length){
 					for(let i in param){
 						const value = param[i];
+						const pd = dateFormat(`${value['date']} ${value['time']}`);
 						html += `
 							<div class="card col-md-3">
 								<div class="card-body">
 									<div class="d-flex justify-content-between mt-2">
 										<span class="hightlight-title">
-											${value.date}
+											${pd.year}-${pd.month}-${pd.day}
+										</span>
+										<span class="hightlight-title">
+											${pd.hour_median}:${pd.minutes} ${pd.median}
 										</span>
 									</div>
 									<div class="d-flex justify-content-between mb-4">
@@ -142,6 +146,10 @@
 									<h6 class="card-subtitle mb-2 text-muted">${value.patient_code}</h6>
 									<h6 class="mb-2 hightlight-title">${value.patient_name}</h6>
 									<p class="card-text">${value.service_desc ? value.service_desc : ""}</p>
+									<hr>
+									<h6 class="card-text">No. of Images: ${value.no_of_images ? value.no_of_images : ""}</h6>
+									<h6 class="card-text">Status: ${value.status_code_desc ? value.status_code_desc : ""}</h6>
+									${value.employee_name ? `<h6 class="card-text">Esthetician:${value.employee_name ? value.employee_name : ""}</h6>` : ""}
 									<p class="card-text">
 										<a class="btn btn-primary btn-action" data-action="upload" data-id="${value.appointment_id}" data-reference="${value.reference}" data-patient="${value.patient_code}">Upload</a>
 										<a class="btn btn-primary btn-action" data-action="view_images" data-id="${value.appointment_id}" data-reference="${value.reference}" data-patient="${value.patient_code}">View Images</a>
