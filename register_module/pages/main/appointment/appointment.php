@@ -143,11 +143,12 @@
 											${value.reference}
 										</span>
 									</div>
+									<h6 class="card-text">No. of Sessions: ${value.no_of_sessions ? value.no_of_sessions : "0"}</h6>
 									<h6 class="card-subtitle mb-2 text-muted">${value.patient_code}</h6>
 									<h6 class="mb-2 hightlight-title">${value.patient_name}</h6>
 									<p class="card-text">${value.service_desc ? value.service_desc : ""}</p>
 									<hr>
-									<h6 class="card-text">No. of Images: ${value.no_of_images ? value.no_of_images : ""}</h6>
+									<h6 class="card-text">No. of Images: ${value.no_of_images ? value.no_of_images : "0"}</h6>
 									<h6 class="card-text">Status: ${value.status_code_desc ? value.status_code_desc : ""}</h6>
 									${value.employee_name ? `<h6 class="card-text">Esthetician: ${value.employee_name ? value.employee_name : ""}</h6>` : ""}
 									<p class="card-text">
