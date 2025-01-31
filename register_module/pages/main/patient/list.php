@@ -112,8 +112,8 @@
 									<h6 class="card-text">Status: ${value.status_code_desc ? value.status_code_desc : ""}</h6>
 									${value.employee_name ? `<h6 class="card-text">Esthetician: ${value.employee_name ? value.employee_name : ""}</h6>` : ""}
 									<p class="card-text">
-										<a class="btn btn-primary btn-action" data-action="upload" data-id="${value.appointment_id}" data-reference="${value.reference}" data-patient="${value.patient_code}">Upload</a>
-										<a class="btn btn-primary btn-action" data-action="view_images" data-id="${value.appointment_id}" data-reference="${value.reference}" data-patient="${value.patient_code}">View Images</a>
+										<a class="btn btn-primary btn-action" data-action="upload" data-id="${value.appointment_id}" data-reference="${value.reference}" data-patient="${value.patient_code}" data-patient-name="${value.patient_name}">Upload</a>
+										<a class="btn btn-primary btn-action" data-action="view_images" data-id="${value.appointment_id}" data-reference="${value.reference}" data-patient="${value.patient_code} data-patient-name="${value.patient_name}"">View Images</a>
 									</p>
 								</div>
 							</div>
@@ -245,7 +245,7 @@
 				$('body').on('click', '.btn-action', function(){
 					const local = $(this);
 					const action = local.attr('data-action');
-					console.log('action');
+			
 					if(typeof action != 'undfined'){
 						switch(action){
 							case "view_history":
@@ -280,6 +280,7 @@
 								const aID = local.attr('data-id');
 								const reference = local.attr('data-reference');
 								const patient = local.attr('data-patient');
+								const patient_name = local.attr('data-patient-name');
 								const option = {
 									icon: 'info',
 									title:`Upload Images`,
@@ -287,6 +288,7 @@
 										<div style="text-align: left;">
 											<form id="upload-form">
 											<div>
+												<label for="inputNumber" class="col-form-label">Patient: <b>${patient_name}</b></label>
 												<label for="inputNumber" class="col-form-label">Reference: <b>${reference}</b></label>
 											</div>
 											<div class="mb-3">
@@ -317,7 +319,7 @@
 													.addClass("show-display");
 											},
 											submitHandler: function(form) {
-												console.log(form);
+												
 												const uploadFile = $('#upload_file').prop('files')[0];
 												const formInput = new FormData();                  
     	
@@ -363,6 +365,9 @@
 									showConfirmButton: false
 								}
 								swal.fire(option);
+							break;
+							case "close-swal":
+								swal.close();
 							break;
 						}
 					}
