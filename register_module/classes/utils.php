@@ -72,11 +72,11 @@ class Utils {
                 if (in_array($_SESSION["user_data"]["userrole"], $role) || $_SESSION["user_data"]["userrole"] == 'admin') {
                     include($param->dir->root."/".$app->template->layout);
                 }else{
-                    header("location: /url=login");
+                    http_response_code(403);
+                    die('<h3>Unauthorize Access</h3>');
                 }
             }else{
-                http_response_code(403);
-                die('<h3>Unauthorize Access</h3>');
+                header("location: /url=login");
             }
         }else{
             include($param->dir->root."/".$app->template->layout);

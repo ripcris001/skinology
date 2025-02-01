@@ -152,8 +152,8 @@
 									<h6 class="card-text">Status: ${value.status_code_desc ? value.status_code_desc : ""}</h6>
 									${value.employee_name ? `<h6 class="card-text">Esthetician: ${value.employee_name ? value.employee_name : ""}</h6>` : ""}
 									<p class="card-text">
-										<a class="btn btn-primary btn-action" data-action="upload" data-id="${value.appointment_id}" data-reference="${value.reference}" data-patient="${value.patient_code}" data-patient-name="${value.patient_name}">Upload</a>
-										<a class="btn btn-primary btn-action" data-action="view_images" data-id="${value.appointment_id}" data-reference="${value.reference}" data-patient="${value.patient_code}" data-patient-name="${value.patient_name}">View Images</a>
+										<a class="btn btn-primary btn-action" data-action="upload" data-id="${value.appointment_id}" data-reference="${value.reference}" data-patient="${value.patient_code}" data-patient-name="${value.patient_name}" data-date="${pd.year}-${pd.month}-${pd.day}">Upload</a>
+										<a class="btn btn-primary btn-action" data-action="view_images" data-id="${value.appointment_id}" data-reference="${value.reference}" data-patient="${value.patient_code}" data-patient-name="${value.patient_name}" data-date="${pd.year}-${pd.month}-${pd.day}">View Images</a>
 									</p>
 								</div>
 							</div>
@@ -253,15 +253,17 @@
 								const reference = local.attr('data-reference');
 								const patient = local.attr('data-patient');
 								const patient_name = local.attr('data-patient-name');
+								const patient_date = local.attr('data-date');
 								const option = {
 									icon: 'info',
 									title:`Upload Images`,
 									html: `
 										<div style="text-align: left;">
 											<form id="upload-form">
-											<div>
-												<label for="inputNumber" class="col-form-label">Patient: <b>${patient_name}</b></label>
-												<label for="inputNumber" class="col-form-label">Reference: <b>${reference}</b></label>
+											<div class="d-flex justify-content-center flex-column text-center mb-2 gap-1">
+												<label for="inputNumber" class="swal2-title" style="font-size:1.2em;"><b>${patient_name}</b></label>
+												<label for="inputNumber" class="swal2-title"><b>${reference}</b></label>
+												<label for="inputNumber" class="swal2-title" style="color: black;"><b>${patient_date}</b></label>
 											</div>
 											<div class="mb-3">
 												<label for="inputNumber" class="col-form-label">File Upload</label>
