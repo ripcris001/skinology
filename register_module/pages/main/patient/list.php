@@ -113,7 +113,7 @@
 									${value.employee_name ? `<h6 class="card-text">Esthetician: ${value.employee_name ? value.employee_name : ""}</h6>` : ""}
 									<p class="card-text">
 										<a class="btn btn-primary btn-action" data-action="upload" data-id="${value.appointment_id}" data-reference="${value.reference}" data-patient="${value.patient_code}" data-patient-name="${value.patient_name}" data-date="${pd.year}-${pd.month}-${pd.day}">Upload</a>
-										<a class="btn btn-primary btn-action" data-action="view_images" data-id="${value.appointment_id}" data-reference="${value.reference}" data-patient="${value.patient_code} data-patient-name="${value.patient_name}" data-date="${pd.year}-${pd.month}-${pd.day}">View Images</a>
+										<a class="btn btn-primary btn-action" data-action="view_images" data-id="${value.appointment_id}" data-reference="${value.reference}" data-patient="${value.patient_code}" data-patient-name="${value.patient_name}" data-date="${pd.year}-${pd.month}-${pd.day}">View Images</a>
 									</p>
 								</div>
 							</div>
