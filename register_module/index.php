@@ -1,4 +1,5 @@
 <?php 
+    defined('BASEPATH') OR exit('No direct script access allowed');
     if(isset($SERVER_ALLOW_APP) && $SERVER_ALLOW_APP){
         $req_param = array();
         $url_components = parse_url($server->request->request_url);

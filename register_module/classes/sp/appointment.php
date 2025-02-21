@@ -74,5 +74,16 @@ class appointment extends utils {
         return $output;
     }
 
+    public function getAppointmentImg($param, $all = null){
+        $call = $this->newsp("sp_web_get_appointment_image_list");
+		$call->action = "get";
+        $call->all = isset($all) ? true : null;
+        $call->field[] = ["appointment_id", isset($param["appointment_id"]) ? (int)$param["appointment_id"] : 0];
+
+        # field data decleration
+        $output = $this->DBCon->call($call);
+        return $output;
+    }
+
 }
 ?>

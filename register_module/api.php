@@ -71,29 +71,28 @@
                 }
             break;
 
-
             case "appointment/patient/files":
                 try {
                     $fileList = array();
+                    $getIMG = $app->sp->appointment->getAppointmentImg($app->input->post, true);
                     $appointment_path = $app->directory->root . "/" . DEFAULT_IMAGE_DIR . "/" . $app->input->post['patient'] . '/' . $app->input->post['reference'];
                     $webPath = DEFAULT_WEB_IMAGE_DIR . "/" . $app->input->post['patient'] . '/' . $app->input->post['reference'];
-                    if(is_dir($appointment_path)){
-                        $sp = $app->sp->appointment->getImageUpload(array("reference" => $app->input->post['reference']));
-                        $files = scandir($appointment_path);
-                        if(count($files) > 0){
-                            foreach ($files as $file) {
-                                $filePath = $appointment_path . '/' . $file;
-                                if (is_file($filePath)) {
-                                    $sp = $app->sp->appointment->getImageUpload(array("reference" => $app->input->post['reference'], "filename" => $file));
-                                    $fileList[] = array("path" => $filePath, "file" => $webPath . '/' . $file, "data" => $sp->status ? $sp->data : new stdClass());
-                                }
+                    if($getIMG->status){
+                        if(isset($getIMG->data) && count($getIMG->data)){
+                            foreach ($getIMG->data as $key => $value) {
+                                $filePath = $appointment_path . '/' . $value['filename'];
+                                $webFile = $webPath . '/' . $value['filename'];
+                                // if (is_file($filePath)) {
+                                    $fileList[] = array("path" => $filePath, "file" => $webFile, "data" => $getIMG->status ? $getIMG->data[$key] : new stdClass());
+                                // }
                             }
                             $response->status = true;
+                        }else{
+                            $response->message = "Appointment image is empty.";
                         }
                     }else{
                         $response->message = "Appointment image folder doesnt exist on server.";
                     }
-                    
                     $response->data = $fileList;
                 } catch (Exception $e) {
                     $response->message = $e->getMessage();

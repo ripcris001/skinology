@@ -256,7 +256,8 @@
 							case 'view_images':
 								const aRef = local.attr('data-reference');
 								const aPatient = local.attr('data-patient');
-								$.post('/?url=appointment/patient/files', {reference: aRef, patient: aPatient}).done(function(res){
+								const appointment_id = local.attr('data-id');
+								$.post('/?url=appointment/patient/files', {reference: aRef, patient: aPatient, appointment_id}).done(function(res){
 									if(res.status){
 										if(res.data.length){
 											s.loadAppointmentImages(res.data);
